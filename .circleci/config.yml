@@ -16,7 +16,7 @@ jobs:
       # - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > key.jks
       # - run: echo "$PLAY_STORE_UPLOAD_KEY_INFO" | base64 --decode > android/key.properties
       - run: flutter doctor -v
-      # - run: cd android && fastlane beta
+      - run: cd android && fastlane beta
 workflows:
   deploy:
     jobs:
