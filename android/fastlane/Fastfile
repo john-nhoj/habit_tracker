@@ -29,6 +29,7 @@ platform :android do
       sh("flutter", "clean")
       sh("flutter", "build", "appbundle", "--build-number=#{build_number}")
     end
+    upload_to_play_store(track: 'beta', version_code: 1)
   end
 
   desc "Deploy a new version to the Google Play"
