@@ -14,8 +14,6 @@ jobs:
     steps:
       - checkout
       - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/key.jks
-      - run: pwd
-      - run: ls -alp
       - run: echo "$PLAY_STORE_UPLOAD_KEY_INFO" | base64 --decode > android/key.properties
       - run: cd android && fastlane beta
 workflows:
