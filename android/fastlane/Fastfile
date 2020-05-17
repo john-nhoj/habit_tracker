@@ -24,19 +24,7 @@ platform :android do
       sh("flutter", "clean")
       sh("flutter", "build", "appbundle", "--build-number=#{build_number}")
     end
-    upload_to_play_store(track: 'beta', version_code: 1, json_key_data: '{
-      "type": "service_account",
-      "project_id": "api-5908956766015604056-469148",
-      "private_key_id": "f909f7e4e8ed6c744deac957e74828831b931f46",
-      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC0/4FQujQrmzBp\n/P+rV6elmAvZLjgnU5S0Dz+wVFbdZFWHq8JIoJMEmrrE+dPZamDK9JTwpKOUkwgr\n3giAsOIpjsdufJN5/oRs7o3BTQz6A4dL8wDPDsIRG9POp0I8rHSFyqIwccDHGWbn\nUv5etzgjyEEoY77v3j6IWicitC+0e8sYQPPoF9/nxwhN/NOOSeJIvCX5313NxLQv\nukERh3v2CfQNtcl2a9/oqGEZHAEYoicQA6fRrXi6VVGUSnn1yjOsm0TDjNfF0dyu\nPJxqdHxA9+dD/wWcXgjZCNVyr100v/sx00zcSyfMkUVW/tG8FgfEHcAH0IuqV2fd\nP1MmxhvvAgMBAAECggEAOFZbOvRqbrREUok0T3HeNdXowjX3to32eEFS0qC91PV5\nBdy5gX+xozpCLjOQ9Fh/Pkz42xpz7DgD0BuxS9VC4CqX+tT91ngZYgqyxtsj0eIt\nR7+gndJ7J3Yg7G71WAtZzZcv+qI9nftTI2ea04J2D/UyCs9ZTDJCBpEBI3UwcB2d\nKFQ+CEG8mCOl3v3I4kJ5XQIgnV33Ty3FzjAsFaP7b7XZxw8dtrOvar0bmyC3roQu\nY7g1/Op4uQNmldcb+KCT71L4BJlXyqHVdTA3MQqxaITOWNjRTOmDr6JI4WELhvTn\nUZm30V744lSaiwp612LbJgJyir/kYivm++SfUC8oAQKBgQDzhtgImyOzlekS7gvd\n8a7q25YECgE2peud4jghcpPiyLu7nVOGYCe2XLC9Q7hUedfMM9FfpBqcZN69QDQ8\nuoZxoDc4DzbxNMh8W3E2/SvJ/RiIly8J94TgCzfgF5n4IepsFaEPPknnl38Qd/wX\nwMphFj9bSdgis83PloxSss2P7wKBgQC+RMbZP3p3+HXb8PGtIxUt+Tv/rs2d2Skn\na8QH4RzF0ePxrDjJ0nfXFx+oDBoJEgxKuPl/nudWOOx8/uQn7O9+IYnFAFGt167n\noh/2oq8iJHh9VpG8JWvusoIz+FtFuXzq4Rl80OipshwMCgFimaaNzrdYPXtTfWRr\nvXYbvQQ0AQKBgE/FsCbBiyRcywikaca+UKomXDHehR89or0JSZHLUp5LWxPOKXov\nLVMTceHNuSgS8Zm2r7NAsmbgtAYSbgomn7vA29XFRh4lSDdUTPXSYPG9srerroD5\nT9GEWz1Q/eLGWWAmhafUo6j1e24Nn8q4IJNFEmP5AI/9jkGd80FzyNqJAoGAbdFA\nfC+ZPhlX3UQqGWZAWTKbIK4B23N1v10B3hJeCwdj6x8d/87MgIbGLLYfaNDT62Ts\nDG7o0uk0BckQYsLsT/6Hh/7xJcdxGhyHGlE3iBtIt/75SoDG1RSO9fQIqiuvH9og\nXdwuDZPRgFleB0zrxrljNTj3L28WQOEvhD8KaAECgYA9riQcWJ9PhNaehi1AVNPu\nlJYU8vEfhdTUO4jsApzyZZWFkKiWBW2wothHEksJNO7fbB+eh8VsXfCbbxoYNEpv\nG9sw4fLYWM44MZFfwnWKq9Y8Yl/Oo9fUGfsEKJuKOHRaBEudgGQaE1+gvTCnOkLE\nr9D1NSqyjb+3BtiBJf8y+A==\n-----END PRIVATE KEY-----\n",
-      "client_email": "habittracker@api-5908956766015604056-469148.iam.gserviceaccount.com",
-      "client_id": "116867328698093063274",
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/habittracker%40api-5908956766015604056-469148.iam.gserviceaccount.com"
-    }
-    ')
+    upload_to_play_store(track: 'beta', version_code: 1, json_key_data: File.read('/tmp/upload-key.txt'))
     # upload_to_play_store(track: 'beta', version_code: 1)
   end
 end
