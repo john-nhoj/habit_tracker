@@ -19,7 +19,7 @@ jobs:
       - run: echo "$PLAY_STORE_SIGNING_KEY_INFO" | base64 --decode > android/key.properties
       - run: cd android && fastlane build_android
 
-  deploy-beta:
+  release-beta:
     executor: flutter
     steps:
       - checkout
@@ -34,7 +34,7 @@ workflows:
     jobs:
       requires:
         - sanity-check
-        - deploy-beta
+        - release-beta
       filters:
         branches:
           only: release/beta
