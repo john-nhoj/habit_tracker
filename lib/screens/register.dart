@@ -103,8 +103,8 @@ class _SignUpFormState extends State<SignUpForm> {
                               "password": passwordController.text.trim()
                             });
 
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Processing Data')));
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Thank you for registering!')));
 
                         if (response.statusCode == 200) {
                           Map userMap = jsonDecode(response.body);
