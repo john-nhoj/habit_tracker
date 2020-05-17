@@ -32,12 +32,11 @@ workflows:
       - build
   deploy-beta:
     jobs:
-      - test
-      - build
       - release-beta:
           requires:
             - test
             - build
-    branches:
-      only:
-        - "release/beta"
+          filters:
+            branches:
+              only:
+                - "release/beta"
