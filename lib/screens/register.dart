@@ -79,10 +79,10 @@ class _SignUpFormState extends State<SignUpForm> {
                       },
                     ),
                     TextFormField(
+                      obscureText: true,
                       controller: passwordController,
                       decoration:
                           InputDecoration(labelText: 'Enter your password'),
-                      // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter some text';
@@ -96,7 +96,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       // Validate returns true if the form is valid, otherwise false.
                       if (_formKey.currentState.validate()) {
                         var response = await post(
-                            'https://habit-tracker-backend.herokuapp.com/api/auth',
+                            'https://habit-tracker-backend.herokuapp.com/api/auth/register',
                             body: {
                               "username": usernameController.text.trim(),
                               "email": emailController.text.trim(),
