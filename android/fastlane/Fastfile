@@ -16,15 +16,22 @@
 default_platform(:android)
 
 platform :android do
-  desc "Submit a new Beta Build to Google Play"
-  lane :beta do
+  desc "Test the app"
+  lane :test do
+  end
+
+  desc "Build the app"
+  lane :build_android do
     build_number = number_of_commits()
     Dir.chdir "../.." do
       sh("flutter", "packages", "get")
       sh("flutter", "clean")
       sh("flutter", "build", "appbundle", "--build-number=#{build_number}")
     end
+  end
+
+  desc "Submit a new Beta Build to Google Play"
+  lane :release_beta do
     upload_to_play_store(track: 'beta', version_code: 1, json_key_data: File.read('/tmp/upload-key.txt'))
-    # upload_to_play_store(track: 'beta', version_code: 1)
   end
 end

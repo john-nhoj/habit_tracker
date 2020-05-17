@@ -1,27 +1,40 @@
 version: 2.1
 
 executors:
-  android-flutter:
+  flutter:
     docker:
       - image: chengjo0/cci-flutter-fastlane:latest
-    environment:
-      TERM: dumb
-      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
 jobs:
-  beta_deploy:
-    executor: android-flutter
+  test:
+    executor: flutter
+    steps:
+      - checkout
+      - run: flutter test
+
+  build:
+    executor: flutter
     steps:
       - checkout
       - run: echo "$PLAY_STORE_SIGNING_KEY" | base64 --decode > /tmp/signing-key.jks
-      - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
       - run: echo "$PLAY_STORE_SIGNING_KEY_INFO" | base64 --decode > android/key.properties
-      - run: cat /tmp/upload-key.txt
-      - run: cd android && fastlane beta
+      - run: cd android && fastlane build_android
+
+  deploy-beta:
+    executor: flutter
+    steps:
+      - checkout
+      - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
+      - run: cd android && fastlane release_beta
 workflows:
-  deploy:
+  sanity-check:
     jobs:
-      - beta_deploy
-        # filters:
-        #   branches:
-        #     only: beta
+      - test
+      - build
+  deploy-beta:
+    jobs:
+      requires:
+        - sanity-check
+        - deploy-beta
+      filters:
+        branches:
+          only: release/beta
