@@ -38,7 +38,6 @@ workflows:
           requires:
             - test
             - build
-          filters:
-            branches:
-              only:
-                - "release/beta"
+    branches:
+      only:
+        - "release/beta"
