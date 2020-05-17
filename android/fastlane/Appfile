@@ -1,2 +1,1 @@
-# json_key_file("/Users/jche/Downloads/api-5908956766015604056-469148-4c6cd9aa5c74.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
 package_name("me.johncheng.HabitTracker") # e.g. com.krausefx.app
