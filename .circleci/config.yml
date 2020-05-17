@@ -13,8 +13,10 @@ jobs:
     executor: android-flutter
     steps:
       - checkout
-      # - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > key.jks
-      # - run: echo "$PLAY_STORE_UPLOAD_KEY_INFO" | base64 --decode > android/key.properties
+      - run: echo "$PLAY_STORE_SIGNING_KEY" | base64 --decode > /tmp/signing-key.jks
+      - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
+      - run: echo "$PLAY_STORE_SIGNING_KEY_INFO" | base64 --decode > android/key.properties
+      - run: cat /tmp/upload-key.txt
       - run: cd android && fastlane beta
 workflows:
   deploy:
