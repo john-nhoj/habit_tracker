@@ -24,9 +24,8 @@ jobs:
     steps:
       - checkout
       - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
-      - run: cd android
-      - run: fastlane build_android
-      - run: fastlane release_beta
+      - run: cd android && fastlane build_android
+      - run: cd android && fastlane release_beta
 
   release-alpha:
     executor: flutter
@@ -34,8 +33,8 @@ jobs:
       - checkout
       - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
       - run: cd android
-      - run: fastlane build_android
-      - run: fastlane release_alpha
+      - run: cd android && fastlane build_android
+      - run: cd android && fastlane release_alpha
 
 workflows:
   sanity-check:
