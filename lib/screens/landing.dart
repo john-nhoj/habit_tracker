@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/models/user.dart';
 import 'package:habit_tracker/screens/register.dart';
-import 'package:provider/provider.dart';
 
 class LandingPage extends StatelessWidget {
   LandingPage({Key key, this.title}) : super(key: key);
@@ -9,10 +7,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userProfile = Provider.of<UserModel>(context, listen: true);
-    String text = userProfile.isAuthenticated()
-        ? 'Hello ${userProfile.getUsername()}'
-        : 'Something went wrong $userProfile';
+    String text = 'Register me!';
     return Scaffold(
         appBar: AppBar(title: Text(this.title)),
         body: Center(

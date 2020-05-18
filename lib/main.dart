@@ -16,11 +16,11 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/',
+        home: LandingPage(
+          title: 'Habit Tracker',
+        ),
         routes: {
-          '/': (context) => LandingPage(title: 'Habit Tracker'),
           '/register': (context) => RegisterPage(),
-          // '/login': (context) => LogInPage(),
         },
       ),
       providers: [
