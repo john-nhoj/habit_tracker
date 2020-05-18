@@ -23,6 +23,8 @@ jobs:
     executor: flutter
     steps:
       - checkout
+      - run: echo "$PLAY_STORE_SIGNING_KEY" | base64 --decode > /tmp/signing-key.jks
+      - run: echo "$PLAY_STORE_SIGNING_KEY_INFO" | base64 --decode > android/key.properties
       - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
       - run: cd android && fastlane build_android
       - run: cd android && fastlane release_beta
@@ -31,6 +33,8 @@ jobs:
     executor: flutter
     steps:
       - checkout
+      - run: echo "$PLAY_STORE_SIGNING_KEY" | base64 --decode > /tmp/signing-key.jks
+      - run: echo "$PLAY_STORE_SIGNING_KEY_INFO" | base64 --decode > android/key.properties
       - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
       - run: cd android
       - run: cd android && fastlane build_android
