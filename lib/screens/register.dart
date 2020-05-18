@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/controllers/TextFormFields.dart';
 import 'package:habit_tracker/models/user.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
@@ -30,16 +31,16 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final usernameTextField = UsernameTextFormField();
+  final emailTextField = EmailTextFormField();
+  final passwordTextField = PasswordTextFormField();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    usernameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    usernameTextField.dispose();
+    emailTextField.dispose();
+    passwordTextField.dispose();
     super.dispose();
   }
 
@@ -54,42 +55,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Wrap(runSpacing: 20, children: <Widget>[
-                    TextFormField(
-                      controller: usernameController,
-                      decoration:
-                          InputDecoration(labelText: 'Enter your username'),
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: emailController,
-                      decoration:
-                          InputDecoration(labelText: 'Enter your email'),
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      controller: passwordController,
-                      decoration:
-                          InputDecoration(labelText: 'Enter your password'),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
+                    usernameTextField,
+                    emailTextField,
+                    passwordTextField
                   ]),
                   RaisedButton(
                     onPressed: () async {
@@ -98,9 +66,9 @@ class _SignUpFormState extends State<SignUpForm> {
                         var response = await post(
                             'https://habit-tracker-backend.herokuapp.com/api/auth/register',
                             body: {
-                              "username": usernameController.text.trim(),
-                              "email": emailController.text.trim(),
-                              "password": passwordController.text.trim()
+                              "username": usernameTextField.getValue(),
+                              "email": emailTextField.getValue(),
+                              "password": passwordTextField.getValue()
                             });
 
                         Scaffold.of(context).showSnackBar(SnackBar(

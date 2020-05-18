@@ -1,15 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 
 class UserModel extends ChangeNotifier {
   String _username, _token;
   bool _isAuthenticated = false;
-
-  // UserModel() {
-  //   this._isAuthenticated = false;
-  // }
 
   void updateUserProfile(Map<String, dynamic> json) {
     var userInfo = json['user'];
