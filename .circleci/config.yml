@@ -25,11 +25,20 @@ jobs:
       - checkout
       - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
       - run: cd android && fastlane release_beta
+
+  release-alpha:
+    executor: flutter
+    steps:
+      - checkout
+      - run: echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > /tmp/upload-key.txt
+      - run: cd android && fastlane release_alpha
+
 workflows:
   sanity-check:
     jobs:
       - test
       - build
+
   deploy-beta:
     jobs:
       - test:
@@ -50,3 +59,24 @@ workflows:
             branches:
               only:
                 - "release/beta"
+
+  deploy-alpha:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - "release/alpha"
+      - build:
+          filters:
+            branches:
+              only:
+                - "release/alpha"
+      - release-alpha:
+          requires:
+            - test
+            - build
+          filters:
+            branches:
+              only:
+                - "release/alpha"
