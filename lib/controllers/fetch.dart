@@ -15,7 +15,6 @@ class Fetch {
   Fetch._internal();
 
   Future<Response> post(Object body, String endpoint) async {
-    print('$_baseUrl$endpoint');
     var response = await http.post('$_baseUrl$endpoint', body: body);
 
     if (response.statusCode != 200) {
@@ -23,6 +22,18 @@ class Fetch {
       print(response.statusCode);
       print(response.body);
       return Future.error('error');
+    }
+
+    return Future.value(Response(jsonDecode(response.body)));
+  }
+
+  Future<Response> get(String endpoint) async {
+    var response = await http.get('$_baseUrl$endpoint');
+
+    if (response.statusCode != 200) {
+      // Add logs as to why it has failed.
+      // return Future.error('error');
+      return Future.value(Response({}));
     }
 
     return Future.value(Response(jsonDecode(response.body)));
