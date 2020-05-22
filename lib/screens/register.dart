@@ -64,7 +64,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       // Validate returns true if the form is valid, otherwise false.
                       if (_formKey.currentState.validate()) {
                         var response = await post(
-                            'https://habit-tracker-backend.herokuapp.com/api/auth/register',
+                            'https://habit-tracker-backend.herokuapp.com/api/register',
                             body: {
                               "username": usernameTextField.getValue(),
                               "email": emailTextField.getValue(),

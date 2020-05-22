@@ -61,7 +61,7 @@ class _LoginFormState extends State<LoginForm> {
                         fetch.post({
                           "email": emailTextField.getValue(),
                           "password": passwordTextField.getValue()
-                        }, '/auth').then((response) {
+                        }, '/login').then((response) {
                           userProfile.updateUserProfile(response.getData());
                           Navigator.pushNamedAndRemoveUntil(
                               context,
