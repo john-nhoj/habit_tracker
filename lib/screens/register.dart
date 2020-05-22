@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/controllers/TextFormFields.dart';
+import 'package:habit_tracker/controllers/fetch.dart';
 import 'package:habit_tracker/models/user.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -34,6 +32,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final usernameTextField = UsernameTextFormField();
   final emailTextField = EmailTextFormField();
   final passwordTextField = PasswordTextFormField();
+  final fetch = Fetch();
 
   @override
   void dispose() {
@@ -61,24 +60,17 @@ class _SignUpFormState extends State<SignUpForm> {
                   ]),
                   RaisedButton(
                     onPressed: () async {
-                      // Validate returns true if the form is valid, otherwise false.
                       if (_formKey.currentState.validate()) {
-                        var response = await post(
-                            'https://habit-tracker-backend.herokuapp.com/api/register',
-                            body: {
-                              "username": usernameTextField.getValue(),
-                              "email": emailTextField.getValue(),
-                              "password": passwordTextField.getValue()
-                            });
-
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                            content: Text('Thank you for registering!')));
-
-                        if (response.statusCode == 200) {
-                          Map userMap = jsonDecode(response.body);
-                          userProfile.updateUserProfile(userMap);
+                        fetch.post({
+                          "username": usernameTextField.getValue(),
+                          "email": emailTextField.getValue(),
+                          "password": passwordTextField.getValue()
+                        }, '/register').then((response) {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('Thank you for registering!')));
+                          userProfile.updateUserProfile(response.getData());
                           Navigator.pop(context);
-                        }
+                        });
                       }
                     },
                     child: Text('Submit'),
