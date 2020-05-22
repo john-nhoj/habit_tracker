@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
 class UserModel extends ChangeNotifier {
+  static final UserModel _instance = UserModel._internal();
   String _username, _token;
   bool _isAuthenticated = false;
+
+  factory UserModel() {
+    return _instance;
+  }
+
+  UserModel._internal();
 
   void updateUserProfile(Map<String, dynamic> json) {
     var userInfo = json['user'];
