@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:habit_tracker/models/response.dart';
+import 'package:habit_tracker/models/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class Fetch {
   static final Fetch _instance = Fetch._internal();
@@ -27,8 +30,14 @@ class Fetch {
     return Future.value(Response(jsonDecode(response.body)));
   }
 
-  Future<Response> get(String endpoint) async {
-    var response = await http.get('$_baseUrl$endpoint');
+  Future<Response> getWithCredentials(
+    String endpoint,
+    BuildContext context,
+  ) async {
+    var userProfile = Provider.of<UserModel>(context);
+    var response = await http.get('$_baseUrl$endpoint', headers: {
+      "Authorization": userProfile.getToken(),
+    });
 
     if (response.statusCode != 200) {
       // Add logs as to why it has failed.
