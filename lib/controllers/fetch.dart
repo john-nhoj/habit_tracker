@@ -32,8 +32,7 @@ class Fetch {
 
     if (response.statusCode != 200) {
       // Add logs as to why it has failed.
-      // return Future.error('error');
-      return Future.value(Response({}));
+      return Future.error('error');
     }
 
     return Future.value(Response(jsonDecode(response.body)));
