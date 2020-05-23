@@ -9,24 +9,24 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('My habits')),
       body: FutureBuilder(
-        future: Fetch().get('/habits'),
+        future: Fetch().getWithCredentials('/habits', context),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
                 padding: EdgeInsets.fromLTRB(15, 15, 15, 100),
                 itemCount: 10,
                 itemBuilder: (context, index) => Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.fromLTRB(
+                        0.0, index == 0 ? 0.0 : 15.0, 0.0, 0.0),
                     decoration: BoxDecoration(
                         color: Colors.amber[(index % 5 + 1) * 100],
                         borderRadius: BorderRadius.circular(10)),
-                    child: Row(children: <Widget>[
-                      Expanded(child: Text(index.toString())),
-                      IconButton(
+                    child: ListTile(
+                      title: Text(index.toString()),
+                      trailing: IconButton(
                           icon: Icon(Icons.delete),
-                          onPressed: () => print('pressed'))
-                    ])));
+                          onPressed: () => print('pressed')),
+                    )));
           }
 
           return Center(
