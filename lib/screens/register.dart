@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/controllers/TextFormFields.dart';
 import 'package:habit_tracker/controllers/fetch.dart';
+import 'package:habit_tracker/controllers/navigation.dart';
 import 'package:habit_tracker/models/user.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +70,7 @@ class _SignUpFormState extends State<SignUpForm> {
                           Scaffold.of(context).showSnackBar(SnackBar(
                               content: Text('Thank you for registering!')));
                           userProfile.updateUserProfile(response.getData());
-                          Navigator.pop(context);
+                          Navigation().navigateBack(context);
                         });
                       }
                     },

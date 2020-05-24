@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/controllers/TextFormFields.dart';
 import 'package:habit_tracker/controllers/fetch.dart';
+import 'package:habit_tracker/controllers/navigation.dart';
 import 'package:habit_tracker/models/routes.dart';
 import 'package:habit_tracker/models/user.dart';
 import 'package:provider/provider.dart';
@@ -63,10 +64,10 @@ class _LoginFormState extends State<LoginForm> {
                           "password": passwordTextField.getValue()
                         }, '/login').then((response) {
                           userProfile.updateUserProfile(response.getData());
-                          Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              Routes().getRoute(RouteNames.HOME),
-                              (route) => false);
+                          Navigation().resetAndNavigateTo(
+                            context,
+                            RouteNames.HOME,
+                          );
                         }, onError: (error) {
                           Scaffold.of(context).showSnackBar(SnackBar(
                               content: Text('Email or password incorrect.')));

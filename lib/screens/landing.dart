@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/controllers/navigation.dart';
 import 'package:habit_tracker/models/routes.dart';
 
 class LandingPage extends StatelessWidget {
   LandingPage({Key key, this.title}) : super(key: key);
+  static final _navigation = Navigation();
   final String title;
 
   @override
@@ -15,15 +17,13 @@ class LandingPage extends StatelessWidget {
             RaisedButton(
               child: Text('Register'),
               onPressed: () {
-                Navigator.pushNamed(
-                    context, Routes().getRoute(RouteNames.REGISTER));
+                _navigation.navigateTo(context, RouteNames.REGISTER);
               },
             ),
             RaisedButton(
               child: Text('Log in'),
               onPressed: () {
-                Navigator.pushNamed(
-                    context, Routes().getRoute(RouteNames.LOGIN));
+                _navigation.navigateTo(context, RouteNames.LOGIN);
               },
             )
           ],

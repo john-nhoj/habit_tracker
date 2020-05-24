@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/controllers/navigation.dart';
 import 'package:habit_tracker/models/routes.dart';
 import 'package:habit_tracker/models/user.dart';
 import 'package:habit_tracker/screens/home.dart';
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final Routes _routes = Routes();
+  static final Navigation _navigation = Navigation();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
           title: 'Habit Tracker',
         ),
         routes: {
-          _routes.getRoute(RouteNames.LOGIN): (context) => LoginPage(),
-          _routes.getRoute(RouteNames.REGISTER): (context) => RegisterPage(),
-          _routes.getRoute(RouteNames.HOME): (context) => HomePage()
+          _navigation.getRoute(RouteNames.LOGIN): (context) => LoginPage(),
+          _navigation.getRoute(RouteNames.REGISTER): (context) =>
+              RegisterPage(),
+          _navigation.getRoute(RouteNames.HOME): (context) => HomePage()
         },
       ),
       providers: [
