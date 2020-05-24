@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/models/routes.dart';
+import 'package:habit_tracker/screens/home.dart';
+import 'package:habit_tracker/screens/login.dart';
+import 'package:habit_tracker/screens/register.dart';
 
 class Navigation {
   static final Navigation _instance = Navigation._internal();
@@ -10,6 +13,14 @@ class Navigation {
   }
 
   Navigation._internal();
+
+  Object getRoutes() {
+    return {
+      getRoute(RouteNames.LOGIN): (context) => LoginPage(),
+      getRoute(RouteNames.REGISTER): (context) => RegisterPage(),
+      getRoute(RouteNames.HOME): (context) => HomePage()
+    };
+  }
 
   String getRoute(RouteNames routeName) => _routes.getRoute(routeName);
 

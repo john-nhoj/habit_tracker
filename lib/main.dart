@@ -24,12 +24,7 @@ class MyApp extends StatelessWidget {
         home: LandingPage(
           title: 'Habit Tracker',
         ),
-        routes: {
-          _navigation.getRoute(RouteNames.LOGIN): (context) => LoginPage(),
-          _navigation.getRoute(RouteNames.REGISTER): (context) =>
-              RegisterPage(),
-          _navigation.getRoute(RouteNames.HOME): (context) => HomePage()
-        },
+        routes: _navigation.getRoutes(),
       ),
       providers: [
         ChangeNotifierProvider(create: (context) => UserModel()),
